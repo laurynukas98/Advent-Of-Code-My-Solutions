@@ -12,7 +12,7 @@ def regex_rizz_found_part2(line: str) -> list[str]:
     """part 2 regex."""
     test = re.sub(r"(don't\(\)).*?(do\(\))","", line)
     test = re.sub(r"(don't\(\)).*","", test)
-    return re.findall(r"mul\(\d{1,3}\,\d{1,3}\)", test)
+    return regex_rizz_found_part1(test)
 
 def multiplicationz(line: str) -> int:
     """do multiplication."""
