@@ -1,7 +1,4 @@
-# Not sure if there's a better way to handle this one...
-import sys
-sys.path.append("../../../Helpers")
-from CommonShitz import start
+"""masterpiece"""
 
 MAXDIFF = 3
 
@@ -38,5 +35,3 @@ def part2(data) -> str:
                 count += 1
                 break
     return count
-
-start(part1, part2)

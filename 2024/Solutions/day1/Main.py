@@ -1,17 +1,14 @@
-# Not sure if there's a better way to handle this one...
-import sys
-sys.path.append("../../../Helpers")
-from CommonShitz import readFile
+"""masterpiece"""
 
-def _sum(x, y):
+def _sum(x, y) -> int:
+    """starts masterpiece part 1"""
     rez = 0
     for i in range(len(x)):
         rez += abs(x[i] - y[i])
     return rez
 
-def _start():
-    data = readFile()
-
+def part1(data) -> str:
+    """starts masterpiece part 1"""
     test = [(x.split()) for x in data]
 
     lList = [int(x[0]) for x in test]
@@ -21,13 +18,22 @@ def _start():
     lList.sort()
 
     # Part 1
-    print('Part 1: ' + str(_sum(rList,lList)))
+    return _sum(rList,lList)
 
-    # Part 2
+# Probably this  piece of garbage needs to be reworked
+def part2(data) -> str:
+    """starts masterpiece part 2"""
+    test = [(x.split()) for x in data]
+
+    lList = [int(x[0]) for x in test]
+    rList = [int(x[1]) for x in test]
+
+    rList.sort()
+    lList.sort()
+
     rListCount = dict(map(lambda x: (x, rList.count(x)), rList))
     summ = 0
     for (key, x) in rListCount.items():
         summ += x * key * lList.count(key)
-    print('Part 2: ' + str(summ))
 
-_start()
+    return summ

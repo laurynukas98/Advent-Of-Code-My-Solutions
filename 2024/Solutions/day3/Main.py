@@ -1,8 +1,5 @@
-# Not sure if there's a better way to handle this one...
-import sys
+"""masterpiece"""
 import re
-sys.path.append("../../../Helpers")
-from CommonShitz import start
 
 def regex_rizz_found_part1(line: str) -> list[str]:
     """part 3 regex."""
@@ -35,5 +32,3 @@ def part2(data: list[str]) -> str:
     """starts masterpiece part 2"""
     found = regex_rizz_found_part2("".join(data))
     return calc_sum(found)
-
-start(part1, part2)

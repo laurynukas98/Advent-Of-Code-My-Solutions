@@ -1,7 +1,4 @@
-# Not sure if there's a better way to handle this one...
-import sys
-sys.path.append("../../../Helpers")
-from CommonShitz import start
+"""masterpiece"""
 
 def part1(data) -> str:
     """starts masterpiece part 1"""
@@ -10,5 +7,3 @@ def part1(data) -> str:
 def part2(data) -> str:
     """starts masterpiece part 2"""
     return 'Not Implemented'
-
-start(part1,part2)
