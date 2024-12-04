@@ -9,11 +9,11 @@ def start():
     print('Part1 rez: ' + str(part1(data)))
     print('Part2 rez: ' + str(part2(data)))
 
-def part1(data):
+def part1(data) -> str:
     """starts masterpiece part 1"""
     return 'Not Implemented'
 
-def part2(data):
+def part2(data) -> str:
     """starts masterpiece part 2"""
     return 'Not Implemented'
 

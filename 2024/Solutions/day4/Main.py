@@ -26,7 +26,7 @@ def check(data, coord, transform, word_check) -> bool:
     else:
         return False
 
-def calc_part1(matrix):
+def calc_part1(matrix) -> int:
     """part 1 check."""
     len_x = len(matrix[0])
     len_y = len(matrix)
@@ -39,7 +39,7 @@ def calc_part1(matrix):
                         rez += check(matrix, (x,y), transformation, word)
     return rez
 
-def calc_part2(matrix):
+def calc_part2(matrix) -> int:
     """part 2 check."""
     len_x = len(matrix[0])
     len_y = len(matrix)
@@ -66,11 +66,11 @@ def start():
     print('Part1 rez: ' + str(part1(data)))
     print('Part2 rez: ' + str(part2(data)))
 
-def part1(data):
+def part1(data) -> str:
     """starts masterpiece part 1"""
     return calc_part1(data)
 
-def part2(data):
+def part2(data) -> str:
     """starts masterpiece part 2"""
     return calc_part2(data)
 
