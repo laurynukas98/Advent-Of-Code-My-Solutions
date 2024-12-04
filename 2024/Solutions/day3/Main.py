@@ -2,7 +2,7 @@
 import sys
 import re
 sys.path.append("../../../Helpers")
-from CommonShitz import readFile
+from CommonShitz import start
 
 def regex_rizz_found_part1(line: str) -> list[str]:
     """part 3 regex."""
@@ -26,12 +26,6 @@ def calc_sum(found: list[str]) -> int:
         rez += multiplicationz(x)
     return rez
 
-def start():
-    """starts masterpiece."""
-    data = readFile()
-    print('Part1 rez: ' + str(part1(data)))
-    print('Part2 rez: ' + str(part2(data)))
-
 def part1(data: list[str]) -> str:
     """starts masterpiece part 1"""
     found = regex_rizz_found_part1("".join(data))
@@ -42,4 +36,4 @@ def part2(data: list[str]) -> str:
     found = regex_rizz_found_part2("".join(data))
     return calc_sum(found)
 
-start()
+start(part1, part2)

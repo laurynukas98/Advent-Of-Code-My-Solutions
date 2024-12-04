@@ -1,7 +1,7 @@
 # Not sure if there's a better way to handle this one...
 import sys
 sys.path.append("../../../Helpers")
-from CommonShitz import readFile
+from CommonShitz import start
 
 MAXDIFF = 3
 
@@ -21,12 +21,6 @@ def increasing_or_decreasing_and_no_maxdiff(line) -> bool:
         order = determ
     return True
 
-def start():
-    """starts masterpiece."""
-    data = readFile()
-    print('Part1 rez: ' + str(part1(data)))
-    print('Part2 rez: ' + str(part2(data)))
-
 def part1(data) -> str:
     """starts masterpiece part 1"""
     count = 0
@@ -45,4 +39,4 @@ def part2(data) -> str:
                 break
     return count
 
-start()
+start(part1, part2)

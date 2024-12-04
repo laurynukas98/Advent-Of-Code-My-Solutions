@@ -1,13 +1,7 @@
 # Not sure if there's a better way to handle this one...
 import sys
 sys.path.append("../../../Helpers")
-from CommonShitz import readFile
-
-def start():
-    """starts masterpiece."""
-    data = readFile()
-    print('Part1 rez: ' + str(part1(data)))
-    print('Part2 rez: ' + str(part2(data)))
+from CommonShitz import start
 
 def part1(data) -> str:
     """starts masterpiece part 1"""
@@ -17,4 +11,4 @@ def part2(data) -> str:
     """starts masterpiece part 2"""
     return 'Not Implemented'
 
-start()
+start(part1,part2)
