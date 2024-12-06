@@ -12,3 +12,6 @@ class Coord:
 
     def transform(self, coord):
         return Coord(self.x + coord.x, self.y + coord.y)
+    
+    def print(self):
+        print('(' + str(self.x) + ',' + str(self.y) +')')
