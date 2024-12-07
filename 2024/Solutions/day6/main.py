@@ -4,14 +4,14 @@ from Helpers.coordz import Coord
 
 
 DIRECTIONS = [Coord(0,-1), Coord(1,0), Coord(0,1), Coord(-1,0)]
-DIRECTIONS_SYMBOLS = ['^', '>', 'D', '<']
+DIRECTIONS_SYMBOLS = ['^', '>', 'v', '<']
 
-def solve_part1(maze, start: Coord):
+def solve_part1(maze, start: Coord, tries: int = 0, index_direction: int = 0):
     _maze = maze.copy()
-    index_direction = 0
     coord = start
     exit = False
     rez = 1
+    i = 0
     try:
         while not exit:
             c_coord = coord.transform(DIRECTIONS[index_direction])
@@ -25,11 +25,10 @@ def solve_part1(maze, start: Coord):
                 coord = c_coord
             else:
                 coord = c_coord
-            if coord.x == 42 and coord.y == 13:
-                for line in _maze:
-                    print(line)
-                raise Exception('eee')
-    except:
+            if tries != 0 and i > tries:
+                return 0
+            i += 1
+    except Exception as e:
         return rez
     return rez
 
@@ -43,20 +42,20 @@ def further_check(_maze, c_coord, index_direction):
             if check_point1.x < 0 or check_point1.y < 0:
                 check_exit = True
             elif _maze[check_point1.y][check_point1.x] == '#':
-                print('check:')
-                print(_maze[check_point.y][check_point.x])
-                print(_maze[check_point1.y][check_point1.x])
-                print(_maze[check_point.y][check_point.x] + ' != ' + DIRECTIONS_SYMBOLS[(index_direction + 1) % 4])
-                if _maze[check_point.y][check_point.x] == DIRECTIONS_SYMBOLS[(index_direction + 1) % 4]:
+                #print('check:')
+                #print(_maze[check_point.y][check_point.x])
+                #print(_maze[check_point1.y][check_point1.x])
+                #print(_maze[check_point.y][check_point.x] + ' != ' + DIRECTIONS_SYMBOLS[(index_direction + 1) % 4])
+                if _maze[check_point.y][check_point.x] != '.':
                     print('TRUE')
                     return True
-            elif _maze[check_point1.y][check_point1.x] == DIRECTIONS_SYMBOLS[(index_direction + 1) % 4]:
-                print('TRUE')
-                return True
+            #elif _maze[check_point1.y][check_point1.x] != '.':
+            #    print('TRUE')
+            #    return True
             check_point = check_point1
     except Exception as error:
         print(error)
-    return False
+    return False #2642 NOPE
 
 def solve_part2(maze, start: Coord):
     _maze = maze.copy()
@@ -72,19 +71,34 @@ def solve_part2(maze, start: Coord):
             if _maze[c_coord.y][c_coord.x] == '#':
                 index_direction = (index_direction + 1) % 4
             elif _maze[c_coord.y][c_coord.x] == '.':
-                if further_check(_maze, c_coord, index_direction):
-                    rez += 1
-                _maze[c_coord.y] = _maze[c_coord.y][:c_coord.x] + DIRECTIONS_SYMBOLS[index_direction] + _maze[c_coord.y][c_coord.x + 1:]
-                #rez = rez + 1
+                #if further_check(_maze, c_coord, index_direction):
+                #    rez += 1
+                try:
+                    t1 = c_coord.transform(DIRECTIONS[index_direction])
+                    if _maze[t1.y][t1.x] == '.':
+                        copy_maze = _maze.copy()
+                        copy_maze[t1.y] = copy_maze[t1.y][:t1.x] + '#' + copy_maze[t1.y][t1.x + 1:]
+                        cc_coord = c_coord
+                        c_index = index_direction
+                        if solve_part1(copy_maze, cc_coord, 100000, c_index) == 0:
+                            rez +=1
+                    _maze[c_coord.y] = _maze[c_coord.y][:c_coord.x] + DIRECTIONS_SYMBOLS[index_direction] + _maze[c_coord.y][c_coord.x + 1:]
+                except:
+                    nee = 10
                 coord = c_coord
             else:
-                t1 = c_coord.transform(DIRECTIONS[index_direction])
                 try:
-                    if _maze[t1.y][t1.x] == '.' and further_check(_maze, c_coord, index_direction):
-                        rez += 1
-                except Exception as error:
-                    print(error)
-                #_maze[c_coord.y] = _maze[c_coord.y][:c_coord.x] + DIRECTIONS_SYMBOLS[index_direction] + _maze[c_coord.y][c_coord.x + 1:]
+                    t1 = c_coord.transform(DIRECTIONS[index_direction])
+                    if _maze[t1.y][t1.x] == '.':  
+                        copy_maze = _maze.copy()
+                        copy_maze[t1.y] = copy_maze[t1.y][:t1.x] + '#' + copy_maze[t1.y][t1.x + 1:]
+                        cc_coord = c_coord
+                        c_index = index_direction
+                        if solve_part1(copy_maze, cc_coord, 100000, c_index) == 0:
+                            rez +=1
+                    _maze[c_coord.y] = _maze[c_coord.y][:c_coord.x] + DIRECTIONS_SYMBOLS[index_direction] + _maze[c_coord.y][c_coord.x + 1:]
+                except:
+                    nee = 10
                 coord = c_coord
                 
     except Exception as error:
