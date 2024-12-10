@@ -12,6 +12,7 @@ def solve_part1(maze, start: Coord, tries: int = 0, index_direction: int = 0):
     exit = False
     rez = 1
     i = 0
+    for_part2_points = []
     try:
         while not exit:
             c_coord = coord.transform(DIRECTIONS[index_direction])
@@ -20,6 +21,7 @@ def solve_part1(maze, start: Coord, tries: int = 0, index_direction: int = 0):
             if _maze[c_coord.y][c_coord.x] == '#':
                 index_direction = (index_direction + 1) % 4
             elif _maze[c_coord.y][c_coord.x] == '.':
+                for_part2_points += [Coord(c_coord.x, c_coord.y)]
                 _maze[c_coord.y] = _maze[c_coord.y][:c_coord.x] + '^' + _maze[c_coord.y][c_coord.x + 1:]
                 rez = rez + 1
                 coord = c_coord
@@ -30,7 +32,7 @@ def solve_part1(maze, start: Coord, tries: int = 0, index_direction: int = 0):
             i += 1
     except Exception as e:
         return rez
-    return rez
+    return (rez, for_part2_points)
 
 def further_check(_maze, c_coord, index_direction):
     check_point = c_coord
@@ -42,71 +44,21 @@ def further_check(_maze, c_coord, index_direction):
             if check_point1.x < 0 or check_point1.y < 0:
                 check_exit = True
             elif _maze[check_point1.y][check_point1.x] == '#':
-                #print('check:')
-                #print(_maze[check_point.y][check_point.x])
-                #print(_maze[check_point1.y][check_point1.x])
-                #print(_maze[check_point.y][check_point.x] + ' != ' + DIRECTIONS_SYMBOLS[(index_direction + 1) % 4])
                 if _maze[check_point.y][check_point.x] != '.':
-                    print('TRUE')
                     return True
-            #elif _maze[check_point1.y][check_point1.x] != '.':
-            #    print('TRUE')
-            #    return True
             check_point = check_point1
     except Exception as error:
         print(error)
-    return False #2642 NOPE
+    return False
 
-def solve_part2(maze, start: Coord):
-    _maze = maze.copy()
-    index_direction = 0
-    coord = start
-    exit = False
+def solve_part2_real(maze, start: Coord, points: list[Coord]):
     rez = 0
-    try:
-        while not exit:
-            c_coord = coord.transform(DIRECTIONS[index_direction])
-            if c_coord.x < 0 or c_coord.y < 0:
-                exit = True
-            if _maze[c_coord.y][c_coord.x] == '#':
-                index_direction = (index_direction + 1) % 4
-            elif _maze[c_coord.y][c_coord.x] == '.':
-                #if further_check(_maze, c_coord, index_direction):
-                #    rez += 1
-                try:
-                    t1 = c_coord.transform(DIRECTIONS[index_direction])
-                    if _maze[t1.y][t1.x] == '.':
-                        copy_maze = _maze.copy()
-                        copy_maze[t1.y] = copy_maze[t1.y][:t1.x] + '#' + copy_maze[t1.y][t1.x + 1:]
-                        cc_coord = c_coord
-                        c_index = index_direction
-                        if solve_part1(copy_maze, cc_coord, 100000, c_index) == 0:
-                            rez +=1
-                    _maze[c_coord.y] = _maze[c_coord.y][:c_coord.x] + DIRECTIONS_SYMBOLS[index_direction] + _maze[c_coord.y][c_coord.x + 1:]
-                except:
-                    nee = 10
-                coord = c_coord
-            else:
-                try:
-                    t1 = c_coord.transform(DIRECTIONS[index_direction])
-                    if _maze[t1.y][t1.x] == '.':  
-                        copy_maze = _maze.copy()
-                        copy_maze[t1.y] = copy_maze[t1.y][:t1.x] + '#' + copy_maze[t1.y][t1.x + 1:]
-                        cc_coord = c_coord
-                        c_index = index_direction
-                        if solve_part1(copy_maze, cc_coord, 100000, c_index) == 0:
-                            rez +=1
-                    _maze[c_coord.y] = _maze[c_coord.y][:c_coord.x] + DIRECTIONS_SYMBOLS[index_direction] + _maze[c_coord.y][c_coord.x + 1:]
-                except:
-                    nee = 10
-                coord = c_coord
-                
-    except Exception as error:
-        print(error)
-    for line in _maze:
-        print(line)
+    for c in points:
+        maze_c = maze.copy()
+        maze_c[c.y] = maze_c[c.y][:c.x] + '#' + maze_c[c.y][c.x + 1:]
+        if solve_part1(maze_c, start, 20000) == 0:
+            rez += 1
     return rez
-
 
 def part1(data) -> str:
     """starts masterpiece part 1"""
@@ -120,8 +72,6 @@ def part1(data) -> str:
             break
     return solve_part1(data,start_coord)
 
-    #return 'Not Implemented'
-
 def part2(data) -> str:
     """starts masterpiece part 2"""
     start_coord = ''
@@ -132,4 +82,5 @@ def part2(data) -> str:
                 break
         if start_coord != '':
             break
-    return solve_part2(data,start_coord)
+    (_, points) = solve_part1(data,start_coord)
+    return solve_part2_real(data, start_coord, points)

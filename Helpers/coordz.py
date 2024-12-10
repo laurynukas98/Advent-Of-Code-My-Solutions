@@ -15,3 +15,18 @@ class Coord:
     
     def print(self):
         print('(' + str(self.x) + ',' + str(self.y) +')')
+
+    def equals(self, e):
+        return self.x == e.x and self.y == e.y
+
+    def unique_coords(list):
+        rez = []
+        for x in list:
+            add = True
+            for y in rez:
+                if y.equals(x):
+                    add = False
+                    break
+            if add:
+                rez.append(x)
+        return rez
