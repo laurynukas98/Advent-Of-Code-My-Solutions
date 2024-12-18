@@ -1,4 +1,4 @@
-import importlib
+import importlib.util
 import os
 import sys
 
@@ -34,7 +34,7 @@ def run():
 
     year = str(next((x for x in arguments if x.startswith(YEAR[0]) or x.startswith(YEAR[1])), '')).replace(YEAR[0],'').replace(YEAR[1],'')
     day = next((x for x in arguments if x.startswith(DAY[0]) or x.startswith(DAY[1])), '').replace(DAY[0],'').replace(DAY[1],'')
-    
+
     if year == '' or day == '':
         print('To run this garbage, add arguments "-y=XXXX" for year and "-d=XX" for days.')
         return
