@@ -21,8 +21,8 @@ def antinodes_part2(coord1: Coord, coord2: Coord):
     rez = []
     max_x = len(_data[0])
     max_y = len(_data)
-    point1 = coord1
     distance = coord1.distance(coord2)
+    point1 = coord1
     while point1.in_distance(max_x,max_y):
         rez.append(point1)
         point1 = point1.transform(distance)
@@ -55,7 +55,7 @@ def unique_antinodes(_antinodes: list[Coord]):
 def in_borders(points: list[Coord], max_x: int, max_y: int):
     return [x for x in points if x.in_distance(max_x,max_y)]
 
-def part1(data: any) -> str:
+def part1(data) -> str:
     """starts masterpiece part 1"""
     test = get_points(data)
     _antinodes = produce_antinodes(test)
@@ -63,7 +63,7 @@ def part1(data: any) -> str:
     rez = _antinodes
     return len(rez) #341 rez
 
-def part2(data: any) -> str:
+def part2(data) -> str:
     """starts masterpiece part 2"""
     global _data
     _data = data
@@ -74,7 +74,7 @@ def part2(data: any) -> str:
     return len(rez) #1134 rez
 
 # Optional stuff
-def print_map(data: any, points: list[Coord]):
+def print_map(data, points: list[Coord]):
     for y in data:
         print(y)
     print()
