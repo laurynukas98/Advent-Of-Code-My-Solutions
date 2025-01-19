@@ -13,14 +13,19 @@ class Coord:
     def transform(self, coord):
         return Coord(self.x + coord.x, self.y + coord.y)
     
+    def negation(self):
+        return Coord(self.x * -1, self.y * -1)
+
     def print(self):
         print('(' + str(self.x) + ',' + str(self.y) +')')
 
     def equals(self, coord):
         return self.x == coord.x and self.y == coord.y
     
-    def distance(self, coord):
-        return Coord(self.x - coord.x, self.y - coord.y)
+    def distance(self, coord, _abs: bool = False):
+        x = self.x - coord.x
+        y = self.y - coord.y
+        return Coord(abs(x) if _abs else x , abs(y) if _abs else y)
     
     def in_distance(self, max_x, max_y):
         return True if self.x < max_x and self.y < max_y and self.x > -1 and self.y > -1 else False
