@@ -37,26 +37,21 @@ def move_part2(coord: Coord, direction_from: Coord):
             rez += move_part2(next_move, x.negation())
     return rez
 
-def part1(data) -> str:
-    """starts masterpiece part 1"""
+def get_heads_score(data: list[list[str]], func):
     global _data
     rez = 0
     for (y, line_y) in enumerate(data):
         for (x, char_x) in enumerate(line_y):
             if char_x == '0':
                 _data = data.copy()
-                t = move(Coord(x,y), Coord(0,0))
+                t = func(Coord(x,y), Coord(0,0))
                 rez += t
     return rez
 
+def part1(data) -> str:
+    """starts masterpiece part 1"""
+    return get_heads_score(data, move)
+
 def part2(data) -> str:
     """starts masterpiece part 2"""
-    global _data
-    rez = 0
-    for (y, line_y) in enumerate(data):
-        for (x, char_x) in enumerate(line_y):
-            if char_x == '0':
-                _data = data.copy()
-                t = move_part2(Coord(x,y), Coord(0,0))
-                rez += t
-    return rez
+    return get_heads_score(data, move_part2)
