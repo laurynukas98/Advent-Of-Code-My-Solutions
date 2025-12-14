@@ -35,7 +35,7 @@ def filter_papers(data):
         tt = list(data[t.y])
         tt[t.x] = 'x'
         data[t.y] = "".join(tt)
-    return (len(coordz), data) # 1376
+    return (len(coordz), data)
 
 def part2(data) -> str:
     """starts masterpiece part 2"""
@@ -47,4 +47,4 @@ def part2(data) -> str:
             breakz = True
             break
         rez += removed
-    return rez # 8587
+    return rez
